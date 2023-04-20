@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const IndexPage = () => (
   <>
-    <h1>Neem</h1>
+    <p>現在開発中です!<br />またお会いできるのを楽しみにしております。</p>
     <p>
       Now developing!
       <br />I hope to see you soon!
