@@ -18,7 +18,7 @@ export async function BaseClient(
   // Access auth admin api
   const adminAuthClient = supabase.auth.admin;
 
-  const checkKey = await supabase
+  const {data: checkKey, error} = await supabase
     .from("validated_server")
     .select("*")
     .eq("url", accessurl)
@@ -26,7 +26,7 @@ export async function BaseClient(
     .single();
   if (
     checkKey.accesskey === accesskey &&
-    checkKey.accesssecret === accesssecret
+    checkKey.accesssecret === accesssecret && !error
   ) {
     return supabase;
   } else {
