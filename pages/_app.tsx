@@ -25,30 +25,14 @@ function MyApp({
 }: AppProps<{
   initialSession: Session;
 }>) {
-  const [supabase] = useState(() => createBrowserSupabaseClient());
+  // const [supabase] = useState(() => createBrowserSupabaseClient());
 
   return (
-    <SessionContextProvider
-      supabaseClient={supabase}
-      initialSession={pageProps.initialSession}
-    >
-      <ChakraProvider theme={theme}>
-        <div
-          style={{
-            position: "fixed",
-            width: "100vw",
-            height: "20px",
-            top: 0,
-            left: 0,
-            textAlign: "center",
-          }}
-        >
-          <p className={novafont.className}>Neem (0.0.1Preview)</p>
-        </div>
-        <div style={{ marginTop: "20px" }} />
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </SessionContextProvider>
+    <ChakraProvider theme={theme}>
+      <span className={novafont.className}></span>
+
+      <Component {...pageProps} />
+    </ChakraProvider>
   );
 }
 export default MyApp;
