@@ -1,4 +1,4 @@
-import supabase from "../../utils/base/supabase";
+import supabase from "../../utils/db/connect";
 
 export async function checkOnetimeID(id: string, type: number) {
   const { data, error } = await supabase
