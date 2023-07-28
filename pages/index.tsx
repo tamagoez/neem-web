@@ -20,7 +20,8 @@ const IndexPage = () => (
           text-align: center;
           padding-bottom: 8vw;
           margin: 0 auto;
-
+        }
+        .title_text p {
           background: linear-gradient(270deg, #7184ff, #b3beff);
           background: -webkit-linear-gradient(280deg, #7184ff, #b3beff);
           display: inline-block;
