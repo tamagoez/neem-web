@@ -43,6 +43,7 @@ const IndexPage = () => (
         >
           Now on developing!
         </p>
+        <br />
         <p
           className={novafont.className}
           style={{ fontSize: "4vw", marginTop: "-2vw" }}
