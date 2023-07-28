@@ -36,6 +36,7 @@ const IndexPage = () => (
         <p className={novafont.className} style={{ fontSize: "20vw" }}>
           neem
         </p>
+        <br />
         <p
           className={novafont.className}
           style={{ fontSize: "4vw", marginTop: "-5vw" }}
