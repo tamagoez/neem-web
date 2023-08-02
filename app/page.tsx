@@ -1,6 +1,6 @@
+"use client";
+
 import { Nova_Round } from "next/font/google";
-import Image from "next/image";
-import Link from "next/link";
 
 const novafont = Nova_Round({ weight: "400", subsets: ["latin"] });
 
