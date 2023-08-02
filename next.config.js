@@ -5,4 +5,7 @@ const withPWA = require("next-pwa")({
   disable: process.env.NODE_ENV === "development",
 });
 
-module.exports = withPWA({ output: "standalone", appDir: true });
+module.exports = withPWA({
+  output: "standalone",
+  experimental: { appDir: true },
+});
