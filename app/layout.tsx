@@ -1,4 +1,5 @@
-import "./globals.css"
+import "./globals.css";
+import Provider from "./provider";
 
 export const metadata = {
   title: "neem",
@@ -11,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <head>
         <link rel="manifest" href="/manifest.json" />
         <link
@@ -35,7 +36,9 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#aebaff" />
         <meta name="theme-color" content="#aebaff" />
       </head>
-      <body>{children}</body>
+      <body>
+        <Provider>{children}</Provider>
+      </body>
     </html>
   );
 }
