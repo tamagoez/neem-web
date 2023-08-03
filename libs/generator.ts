@@ -1,4 +1,4 @@
-export function generateRandomString(length) {
+export function generateRandomString(length: number) {
   // 安全で偏りのない乱数生成器の作成
   var array = new Uint32Array(length);
   window.crypto.getRandomValues(array);
