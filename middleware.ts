@@ -1,8 +1,15 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
+import { NextRequest, NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/signup')) {
-    return NextResponse.rewrite(new URL('/auth', request.url))
+export async function middleware(req: NextRequest) {
+  const res = NextResponse.next();
+  const supabase = createMiddlewareClient({ req, res });
+  await supabase.auth.getSession();
+  if (
+    req.nextUrl.pathname.startsWith("/login") ||
+    req.nextUrl.pathname.startsWith("/signup")
+  ) {
+    return NextResponse.rewrite(new URL("/auth", req.url));
   }
+  return res;
 }
