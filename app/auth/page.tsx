@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { authLoginWithEmailPassword } from "../../scripts/database/auth/signin";
 import {
   Container,
