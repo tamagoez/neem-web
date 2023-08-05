@@ -28,32 +28,38 @@ export default function Auth() {
       <style jsx>{`
         .auth_modal {
           position: fixed;
-          inset: 0;
-          margin: auto;
+          left: 50%;
+          top: 50%;
+          transform: translateX(-50%) translateY(-50%);
         }
       `}</style>
-      <Container
-        maxW="md"
-        boxShadow="lg"
+      <div
         className="auth_modal"
-        borderRadius="14px"
+        style={{
+          position: "fixed",
+          left: "50%",
+          top: "50%",
+          transform: "translateX(-50%) translateY(-50%)",
+        }}
       >
-        <Center>
-          <Text fontSize="md" fontWeight="bold">
-            {authmode === "login" ? "ログイン" : "新規登録"}
-          </Text>
-        </Center>
-        {authmode === "signup" ? <SignupComponent /> : <LoginComponent />}
+        <Container maxW="md" boxShadow="lg" borderRadius="14px" margin="20px">
+          <Center>
+            <Text fontSize="md" fontWeight="bold">
+              {authmode === "login" ? "ログイン" : "新規登録"}
+            </Text>
+          </Center>
+          {authmode === "signup" ? <SignupComponent /> : <LoginComponent />}
 
-        <Button
-          onClick={() => {
-            if (authmode === "login") setAuthmode("signup");
-            else setAuthmode("login");
-          }}
-        >
-          {authmode === "login" ? "新規登録" : "ログイン"}に切り替え
-        </Button>
-      </Container>
+          <Button
+            onClick={() => {
+              if (authmode === "login") setAuthmode("signup");
+              else setAuthmode("login");
+            }}
+          >
+            {authmode === "login" ? "新規登録" : "ログイン"}に切り替え
+          </Button>
+        </Container>
+      </div>
     </>
   );
 }
@@ -101,7 +107,9 @@ function LoginComponent({}: {}) {
           <FormErrorMessage>パスワードを入力してください</FormErrorMessage>
         )}
       </FormControl>
-      <Button onClick={handleLogin} colorScheme='teal'>ログイン</Button>
+      <Button onClick={handleLogin} colorScheme="teal">
+        ログイン
+      </Button>
     </>
   );
 }
@@ -114,7 +122,7 @@ function SignupComponent() {
         <br />
         連携後はNeemsBaseを介さずにログイン可能になります
       </Text>
-      <Button colorScheme='teal'>NeemsBaseでログイン</Button>
+      <Button colorScheme="teal">NeemsBaseでログイン</Button>
     </>
   );
 }
