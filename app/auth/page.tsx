@@ -12,37 +12,49 @@ import {
   FormHelperText,
   FormErrorMessage,
   Button,
+  Center,
+  Text,
 } from "../common/chakra-ui";
 import { useState } from "react";
 
 export default function Auth() {
   const router = useRouter();
   const [authmode, setAuthmode] = useState<"login" | "signup" | undefined>(
-    undefined
+    "login"
   );
 
   return (
     <>
       <style jsx>{`
         .auth_modal {
-          disply: fixed;
+          position: fixed;
           insert: 0;
+          margin: auto;
         }
       `}</style>
-      <div className="auth_modal">
-        <Container maxW="md" boxShadow="lg" borderRadius="14px">
-          {authmode === "signup" ? <></> : <LoginComponent />}
+      <Container
+        maxW="md"
+        boxShadow="lg"
+        className="auth_modal"
+        borderRadius="14px"
+      >
+        <Center>
+          <Text fontSize="md">
+            {" "}
+            {authmode === "login" ? "ログイン" : "新規登録"}
+          </Text>
+        </Center>
+        {authmode === "signup" ? <></> : <LoginComponent />}
 
-          <Button
-            onClick={() => {
-              if (authmode === "login") setAuthmode("signup");
-              else setAuthmode("login");
-            }}
-          >
-            {authmode === "login" ? "新規登録" : "ログイン"}
-          </Button>
-        </Container>
-      </div>
+        <Button
+          onClick={() => {
+            if (authmode === "login") setAuthmode("signup");
+            else setAuthmode("login");
+          }}
+        >
+          {authmode === "login" ? "新規登録" : "ログイン"}
+        </Button>
+      </Container>
     </>
   );
 }
