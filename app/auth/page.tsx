@@ -28,7 +28,7 @@ export default function Auth() {
       <style jsx>{`
         .auth_modal {
           position: fixed;
-          insert: 0;
+          inset: 0;
           margin: auto;
         }
       `}</style>
@@ -39,7 +39,7 @@ export default function Auth() {
         borderRadius="14px"
       >
         <Center>
-          <Text fontSize="md">
+          <Text fontSize="md" fontWeight="bold">
             {authmode === "login" ? "ログイン" : "新規登録"}
           </Text>
         </Center>
@@ -101,7 +101,7 @@ function LoginComponent({}: {}) {
           <FormErrorMessage>パスワードを入力してください</FormErrorMessage>
         )}
       </FormControl>
-      <Button onClick={handleLogin}>ログイン</Button>
+      <Button onClick={handleLogin} colorScheme='teal'>ログイン</Button>
     </>
   );
 }
@@ -110,11 +110,11 @@ function SignupComponent() {
   return (
     <>
       <Text>
-        このサーバーでアカウントを新規登録するには、NeemsBaseアカウントを登録して連携する必要があります。
+        NeemsBaseアカウントと連携して新規登録
         <br />
-        このサーバーにアカウントを作成していないNeemsBaseユーザーもこちらから連携してください。
+        連携後はNeemsBaseを介さずにログイン可能になります
       </Text>
-      <Button>NeemsBaseでログイン</Button>
+      <Button colorScheme='teal'>NeemsBaseでログイン</Button>
     </>
   );
 }
