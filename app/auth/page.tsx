@@ -40,11 +40,10 @@ export default function Auth() {
       >
         <Center>
           <Text fontSize="md">
-            {" "}
             {authmode === "login" ? "ログイン" : "新規登録"}
           </Text>
         </Center>
-        {authmode === "signup" ? <></> : <LoginComponent />}
+        {authmode === "signup" ? <SignupComponent /> : <LoginComponent />}
 
         <Button
           onClick={() => {
@@ -52,7 +51,7 @@ export default function Auth() {
             else setAuthmode("login");
           }}
         >
-          {authmode === "login" ? "新規登録" : "ログイン"}
+          {authmode === "login" ? "新規登録" : "ログイン"}に切り替え
         </Button>
       </Container>
     </>
@@ -103,6 +102,19 @@ function LoginComponent({}: {}) {
         )}
       </FormControl>
       <Button onClick={handleLogin}>ログイン</Button>
+    </>
+  );
+}
+
+function SignupComponent() {
+  return (
+    <>
+      <Text>
+        このサーバーでアカウントを新規登録するには、NeemsBaseアカウントを登録して連携する必要があります。
+        <br />
+        このサーバーにアカウントを作成していないNeemsBaseユーザーもこちらから連携してください。
+      </Text>
+      <Button>NeemsBaseでログイン</Button>
     </>
   );
 }

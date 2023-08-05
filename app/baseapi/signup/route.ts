@@ -7,5 +7,14 @@ export async function POST(request: Request) {
 
   const res = await request.json();
   console.log(referer);
-  return NextResponse.json({ res });
+  if (referer !== "https://neemsbase.vercel.app/")
+    return NextResponse.json(
+      { error: "I can't follow your request sorry" },
+      {
+        status: 418,
+      }
+    );
+  // 事前に受け取っていたtokenを確認する
+  // アカウントを作成する
+  return NextResponse.json({}, { status: 201 });
 }
