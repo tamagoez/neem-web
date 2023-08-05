@@ -23,12 +23,17 @@ export default function Auth() {
 
   return (
     <>
+      <style jsx>{`
+        .auth_modal {
+          disply: fixed;
+          insert: 0;
+        }
+      `}</style>
       <Container
         maxW="md"
-        borderColor="gray"
-        borderWidth="1px"
-        dropShadow="sm"
+        boxShadow="lg"
         className="auth_modal"
+        borderRadius="14px"
       >
         {authmode === "signup" ? <></> : <LoginComponent />}
 
@@ -38,7 +43,7 @@ export default function Auth() {
             else setAuthmode("login");
           }}
         >
-          {authmode === "login" ? "ログイン" : "新規登録"}
+          {authmode === "login" ? "新規登録" : "ログイン"}
         </Button>
       </Container>
     </>
