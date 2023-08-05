@@ -29,23 +29,20 @@ export default function Auth() {
           insert: 0;
         }
       `}</style>
-      <Container
-        maxW="md"
-        boxShadow="lg"
-        className="auth_modal"
-        borderRadius="14px"
-      >
-        {authmode === "signup" ? <></> : <LoginComponent />}
+      <div className="auth_modal">
+        <Container maxW="md" boxShadow="lg" borderRadius="14px">
+          {authmode === "signup" ? <></> : <LoginComponent />}
 
-        <Button
-          onClick={() => {
-            if (authmode === "login") setAuthmode("signup");
-            else setAuthmode("login");
-          }}
-        >
-          {authmode === "login" ? "新規登録" : "ログイン"}
-        </Button>
-      </Container>
+          <Button
+            onClick={() => {
+              if (authmode === "login") setAuthmode("signup");
+              else setAuthmode("login");
+            }}
+          >
+            {authmode === "login" ? "新規登録" : "ログイン"}
+          </Button>
+        </Container>
+      </div>
     </>
   );
 }
