@@ -131,7 +131,9 @@ function SignupComponent() {
         <br />
         連携後はNeemsBaseを介さずにログイン可能になります
       </Text>
-      <Button colorScheme="teal">NeemsBaseでログイン</Button>
+      <Button colorScheme="teal" onClick={() => handleSignup()}>
+        NeemsBaseでログイン
+      </Button>
     </>
   );
 }
