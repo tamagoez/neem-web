@@ -16,6 +16,7 @@ import {
   Text,
 } from "../common/chakra-ui";
 import { useState } from "react";
+import { baseUrl } from "../../utils/globalvar";
 
 export default function Auth() {
   const router = useRouter();
@@ -42,7 +43,7 @@ export default function Auth() {
           transform: "translateX(-50%) translateY(-50%)",
         }}
       >
-        <Container maxW="md" boxShadow="lg" borderRadius="14px" margin="20px">
+        <Container maxW="lg" boxShadow="xl" borderRadius="14px">
           <Center>
             <Text fontSize="md" fontWeight="bold">
               {authmode === "login" ? "ログイン" : "新規登録"}
@@ -115,6 +116,14 @@ function LoginComponent({}: {}) {
 }
 
 function SignupComponent() {
+  const handleSignup = async () => {
+    try {
+      const token = await issueSignupServer();
+      location.href = baseUrl + "signup?token=" + token;
+    } catch (error) {
+      alert("エラーが発生したようです...\n管理者にご連絡いただけると幸いです");
+    }
+  };
   return (
     <>
       <Text>
@@ -125,4 +134,7 @@ function SignupComponent() {
       <Button colorScheme="teal">NeemsBaseでログイン</Button>
     </>
   );
+}
+function issueSignupServer() {
+  throw new Error("Function not implemented.");
 }
