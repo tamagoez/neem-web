@@ -8,9 +8,12 @@ import { generateRandomString } from "../../utils/generate";
 export async function issueSignupServer() {
   // メインのスクリプト
   try {
+    const secret = generateRandomString(50);
+    console.log(`secret: ${secret}`);
+
     // 生成
     const data = await fetchBase("signup", {
-      secret: generateRandomString(50),
+      secret,
     });
     return data.token;
   } catch (error: any) {
