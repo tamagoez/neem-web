@@ -8,7 +8,7 @@ export async function fetchBase(mode: string, data: {}) {
   // 漏洩注意
   //
   // 注: process.envで環境変数にしておくこと
-  // 注: .env.localをpullしたりして漏洩するケースもあることに留意
+  // 注: .env.localをpullしたりして漏洩するケースがあることにも留意
 
   const requestData = {
     apikey: apikey,

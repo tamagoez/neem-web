@@ -1,7 +1,9 @@
 import { fetchBase } from "../../utils/base/sender";
 
 export async function issueSignup() {
+  // メインのスクリプト
   try {
+    // 生成
     const data = await fetchBase("signup", {
       secret: generateSecureRandomString(50),
     });

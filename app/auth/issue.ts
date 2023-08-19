@@ -2,7 +2,8 @@
 
 import { issueSignup } from "../../scripts/base/issue";
 
-async function issueSignupServer() {
+export async function issueSignupServer() {
+  // サーバーで実行するためのfunction
   const data = await issueSignup();
   return data;
 }

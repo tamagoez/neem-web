@@ -17,6 +17,7 @@ import {
 } from "../common/chakra-ui";
 import { useState } from "react";
 import { baseUrl } from "../../utils/globalvar";
+import { issueSignupServer } from "./issue";
 
 export default function Auth() {
   const router = useRouter();
@@ -116,6 +117,7 @@ function LoginComponent({}: {}) {
 }
 
 function SignupComponent() {
+  // URL送信
   const handleSignup = async () => {
     try {
       const token = await issueSignupServer();
@@ -136,7 +138,4 @@ function SignupComponent() {
       </Button>
     </>
   );
-}
-function issueSignupServer() {
-  throw new Error("Function not implemented.");
 }
