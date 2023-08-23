@@ -11,7 +11,6 @@ export async function fetchBase(mode: string, data: {}) {
   // 注: .env.localをpullしたりして漏洩するケースがあることにも留意
 
   const requestData = {
-    apikey: apikey,
     ...data,
   };
 
@@ -19,13 +18,14 @@ export async function fetchBase(mode: string, data: {}) {
     method: "POST",
     headers: {
       "Content-Type": "application/json", // リクエストのコンテンツタイプをJSONと指定
+      Authorization: `Bearer: ${apikey}`,
     },
     body: JSON.stringify(requestData), // リクエストボディにデータをJSON形式で文字列化して設定
   };
 
   try {
     const response = await fetch(
-      `https://neemsbase.vercel.app/` + mode,
+      `https://neemsbase.vercel.app/api/` + mode,
       requestOptions
     );
 
