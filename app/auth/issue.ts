@@ -3,19 +3,16 @@
 // import { issueSignup } from "../../scripts/base/issue";
 
 import { fetchBase } from "../../utils/base/sender";
-import { generateRandomString } from "../../utils/generate";
+import { adminDBInsert } from "../../utils/db/admincontrol";
+// import { generateRandomString } from "../../utils/generate";
 
 export async function issueSignupServer() {
   // メインのスクリプト
   try {
-    const secret = generateRandomString(50);
-    console.log(`secret: ${secret}`);
-
     // 生成
-    const data = await fetchBase("signup", {
-      secret,
-    });
-    return data.token;
+    const data = await fetchBase("signup", {});
+    await adminDBInsert("signup_issue", { id: data.requestId }, undefined);
+    return data.requestId;
   } catch (error: any) {
     throw new Error(error);
   }
