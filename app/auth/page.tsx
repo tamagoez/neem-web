@@ -54,8 +54,11 @@ export default function Auth() {
 
           <Button
             onClick={() => {
-              if (authmode === "login") setAuthmode("signup");
-              else setAuthmode("login");
+              if (authmode === "login") {
+                setAuthmode("signup");
+              } else {
+                setAuthmode("login");
+              }
             }}
           >
             {authmode === "login" ? "新規登録" : "ログイン"}に切り替え
