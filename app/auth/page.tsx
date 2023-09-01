@@ -121,15 +121,15 @@ function LoginComponent({}: {}) {
 
 function SignupComponent() {
   // URL送信
-  // const handleSignup = async () => {
-  //   try {
-  //     const requestId = await issueSignupServer();
-  //     location.href = baseUrl + "connect/signup?requestId=" + requestId;
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert("エラーが発生したようです...\n管理者にご連絡いただけると幸いです");
-  //   }
-  // };
+  const handleSignup = async () => {
+    try {
+      const token = await issueSignupServer();
+      location.href = baseUrl + "connect/signup?token=" + token;
+    } catch (error) {
+      console.error(error);
+      alert("エラーが発生したようです...\n管理者にご連絡いただけると幸いです");
+    }
+  };
   return (
     <>
       <Text>
@@ -137,7 +137,9 @@ function SignupComponent() {
         <br />
         連携後はNeemsBaseを介さずにログイン可能になります
       </Text>
-      <Button colorScheme="teal">NeemsBaseでログイン</Button>
+      <Button colorScheme="teal" onClick={() => handleSignup()}>
+        NeemsBaseでログイン
+      </Button>
     </>
   );
 }

@@ -27,6 +27,7 @@ export async function adminDBInsert(
       // selectを行わない(追加のみを行う場合のコード)
       const { error } = await supabase.from(from).insert(insert);
       if (error) throw error;
+      return null;
     } else {
       const { data, error } = await supabase
         .from(from)
