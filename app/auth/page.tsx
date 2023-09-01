@@ -123,6 +123,7 @@ function SignupComponent() {
       const requestId = await issueSignupServer();
       location.href = baseUrl + "connect/signup?requestId=" + requestId;
     } catch (error) {
+      console.error(error);
       alert("エラーが発生したようです...\n管理者にご連絡いただけると幸いです");
     }
   };
