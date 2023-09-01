@@ -123,8 +123,8 @@ function SignupComponent() {
   // URL送信
   const handleSignup = async () => {
     try {
-      const token = await issueSignupServer();
-      location.href = baseUrl + "connect/signup?token=" + token;
+      const data = await issueSignupServer();
+      location.href = baseUrl + "connect/signup?token=" + data.token;
     } catch (error) {
       console.error(error);
       alert("エラーが発生したようです...\n管理者にご連絡いただけると幸いです");

@@ -11,8 +11,8 @@ export async function issueSignupServer() {
   try {
     // 生成
     const data = await fetchBase("signup", {});
-    // await adminDBInsert("signup_issue", { token: data.token }, undefined);
-    return data.token;
+    await adminDBInsert("signup_issue", { token: data.token }, undefined);
+    return data;
   } catch (error: any) {
     throw new Error(error);
   }
