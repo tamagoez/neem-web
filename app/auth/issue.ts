@@ -2,7 +2,7 @@
 
 // import { issueSignup } from "../../scripts/base/issue";
 
-import { fetchBase } from "../../utils/base/sender";
+// import { fetchBase } from "../../utils/base/sender";
 // import { adminDBInsert } from "../../utils/db/admincontrol";
 // import { generateRandomString } from "../../utils/generate";
 

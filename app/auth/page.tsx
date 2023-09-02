@@ -121,15 +121,23 @@ function LoginComponent({}: {}) {
 
 function SignupComponent() {
   // URL送信
-  const handleSignup = async () => {
+  // const handleSignup = async () => {
+  //   try {
+  //     const data = await issueSignupServer();
+  //     location.href = baseUrl + "connect/signup?token=" + data.token;
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert("エラーが発生したようです...\n管理者にご連絡いただけると幸いです");
+  //   }
+  // };
+  async function handleSignup() {
     try {
       const data = await issueSignupServer();
       location.href = baseUrl + "connect/signup?token=" + data.token;
     } catch (error) {
-      console.error(error);
-      alert("エラーが発生したようです...\n管理者にご連絡いただけると幸いです");
+      alert(error);
     }
-  };
+  }
   return (
     <>
       <Text>
