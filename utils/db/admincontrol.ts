@@ -1,4 +1,6 @@
 // USE THIS ONLY FOR SERVER-SIDE CONTROL
+// THIS IS COMMON DATABASE LIBRARY
+// BE CAREFUL
 
 import { createClient } from "@supabase/supabase-js";
 

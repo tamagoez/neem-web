@@ -1,5 +1,7 @@
 // swrを使用しようかと思ったが、使い方がわからない...
 
+import { baseUrl } from "../globalvar";
+
 export async function fetchBase(
   mode: string,
   data: {
@@ -14,6 +16,7 @@ export async function fetchBase(
   //
   // 注: process.envで環境変数にしておくこと
   // 注: .env.localをpullしたりして漏洩するケースがあることにも留意
+  //       .gitignoreの設定を忘れずに
 
   const requestData = {
     ...data,
@@ -30,7 +33,7 @@ export async function fetchBase(
 
   try {
     const response = await fetch(
-      `https://neemsbase.vercel.app/api/` + mode,
+      `${baseUrl}api/` + mode,
       requestOptions
     );
 
