@@ -1,6 +1,11 @@
 // swrを使用しようかと思ったが、使い方がわからない...
+// P.S. axiosを使用することにしたので、これを機にswrのfetcherに渡してswrしていきます
+// PS PS swrサーバーサイドで使えないんですね
 
 import { baseUrl } from "../globalvar";
+
+import axios, { AxiosError } from "axios";
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 export async function fetchBase(
   mode: string,
@@ -22,28 +27,22 @@ export async function fetchBase(
     ...data,
   };
 
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json", // リクエストのコンテンツタイプをJSONと指定
-      Authorization: `Bearer: ${apikey}`,
-    },
-    body: JSON.stringify(requestData), // リクエストボディにデータをJSON形式で文字列化して設定
+  const requestUrl = `${baseUrl}api/` + mode;
+
+  console.log(`${requestUrl} : ${requestData}`);
+  const requestHeaders = {
+    "Content-Type": "application/json", // リクエストのコンテンツタイプをJSONと指定
+    Authorization: `Bearer: ${apikey}`,
   };
 
   try {
-    const response = await fetch(
-      `${baseUrl}api/` + mode,
-      requestOptions
-    );
-
-    // エラーレスポンスを確認
-    if (!response.ok) {
-      throw new Error("fetch failed");
+    const response = await axios.post(requestUrl, requestData, {
+      headers: requestHeaders,
+    });
+    if (AxiosError) {
+      new Error();
     }
-
-    const responseData = await response.json();
-    return responseData;
+    return response.data;
   } catch (error: any) {
     // エラーハンドリング
     console.error("Error: ", error);

@@ -2,118 +2,141 @@
 
 import { useRouter } from "next/navigation";
 import { authLoginWithEmailPassword } from "../../scripts/database/auth/signin";
-import {
-  Container,
-  FormControl,
-  FormLabel,
-  Input,
-  VStack,
-  HStack,
-  FormHelperText,
-  FormErrorMessage,
-  Button,
-  Center,
-  Text,
-} from "../common/chakra-ui";
 import { useState } from "react";
 import { baseUrl } from "../../utils/globalvar";
 import { issueSignupServer } from "./issue";
 
+import { useToggle, upperFirst } from "@mantine/hooks";
+import { UseFormReturnType, useForm } from "@mantine/form";
+import {
+  Anchor,
+  Button,
+  Divider,
+  Group,
+  Paper,
+  PasswordInput,
+  Stack,
+  Text,
+  TextInput,
+} from "@mantine/core";
+
 export default function Auth() {
   const router = useRouter();
-  const [authmode, setAuthmode] = useState<"login" | "signup" | undefined>(
-    "login"
-  );
+  const [authmode, toggle] = useToggle<"login" | "signup">(["login", "signup"]);
+  const form = useForm({
+    initialValues: {
+      email: "",
+      name: "",
+      password: "",
+      terms: true,
+    },
+    validate: {
+      email: (val) =>
+        /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+          val
+        )
+          ? null
+          : "Invalid email",
+      password: (val) =>
+        val.length <= 6
+          ? "Password should include at least 6 characters"
+          : null,
+    },
+  });
 
   return (
     <>
-      <style jsx>{`
-        .auth_modal {
-          position: fixed;
-          left: 50%;
-          top: 50%;
-          transform: translateX(-50%) translateY(-50%);
-        }
-      `}</style>
-      <div
-        className="auth_modal"
-        style={{
-          position: "fixed",
-          left: "50%",
-          top: "50%",
-          transform: "translateX(-50%) translateY(-50%)",
-        }}
-      >
-        <Container maxW="lg" boxShadow="xl" borderRadius="14px">
-          <Center>
-            <Text fontSize="md" fontWeight="bold">
-              {authmode === "login" ? "ログイン" : "新規登録"}
-            </Text>
-          </Center>
-          {authmode === "signup" ? <SignupComponent /> : <LoginComponent />}
+      <div>
+        <Paper radius="md" p="xl" withBorder>
+          <Text size="lg" weight={500}>
+            Welcome to Neem
+            <br />
+            {authmode}
+          </Text>
+          <Divider label="Continue with email" labelPosition="center" my="lg" />
 
-          <Button
-            onClick={() => {
-              if (authmode === "login") {
-                setAuthmode("signup");
-              } else {
-                setAuthmode("login");
-              }
-            }}
-          >
-            {authmode === "login" ? "新規登録" : "ログイン"}に切り替え
-          </Button>
-        </Container>
+          <form onSubmit={form.onSubmit(() => {})}>
+            <Stack>
+              {authmode === "login" ? (
+                <LoginComponent form={form} />
+              ) : (
+                <SignupComponent />
+              )}
+            </Stack>
+            <Group position="apart" mt="xl">
+              <Anchor
+                component="button"
+                type="button"
+                color="dimmed"
+                onClick={() => toggle()}
+                size="xs"
+              >
+                {authmode === "signup"
+                  ? "Already have an account? Login"
+                  : "Don't have an account? Register"}
+              </Anchor>
+            </Group>
+          </form>
+        </Paper>
       </div>
     </>
   );
 }
 
-function LoginComponent({}: {}) {
-  const router = useRouter();
-
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
-  const handleLogin = async () => {
-    const loginstatus = await authLoginWithEmailPassword(email, password);
-    if (loginstatus) router.replace("/auth/callback");
-  };
-  const isEmailError =
-    !/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-      email
-    );
-  const isPasswordError = password === "";
+function LoginComponent({
+  form,
+}: {
+  form: UseFormReturnType<
+    {
+      email: string;
+      name: string;
+      password: string;
+      terms: boolean;
+    },
+    (values: {
+      email: string;
+      name: string;
+      password: string;
+      terms: boolean;
+    }) => {
+      email: string;
+      name: string;
+      password: string;
+      terms: boolean;
+    }
+  >;
+}) {
   return (
     <>
-      <FormControl isInvalid={isEmailError}>
-        <FormLabel textColor="black">Email</FormLabel>
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {!isEmailError ? (
-          <></>
-        ) : (
-          <FormErrorMessage>メールを入力してください</FormErrorMessage>
-        )}
-      </FormControl>
-      <FormControl isInvalid={isPasswordError}>
-        <FormLabel textColor="black">Password</FormLabel>
-        <Input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {!isPasswordError ? (
-          <></>
-        ) : (
-          <FormErrorMessage>パスワードを入力してください</FormErrorMessage>
-        )}
-      </FormControl>
-      <Button onClick={handleLogin} colorScheme="teal">
-        ログイン
+      <TextInput
+        required
+        label="Email"
+        placeholder="your@email.addr"
+        value={form.values.email}
+        onChange={(event) =>
+          form.setFieldValue("email", event.currentTarget.value)
+        }
+        error={form.errors.email && "Invalid email"}
+        radius="md"
+      />
+
+      <PasswordInput
+        required
+        label="Password"
+        placeholder="Your password"
+        value={form.values.password}
+        onChange={(event) =>
+          form.setFieldValue("password", event.currentTarget.value)
+        }
+        error={
+          form.errors.password &&
+          "Password should include at least 6 characters"
+        }
+        radius="md"
+      />
+
+      <Button type="submit" radius="xl">
+        Login
       </Button>
     </>
   );
@@ -133,12 +156,18 @@ function SignupComponent() {
   return (
     <>
       <Text>
-        NeemsBaseアカウントと連携して新規登録
+        公式製作のNeemsBaseを経由して新規登録しましょう!
         <br />
-        連携後はNeemsBaseを介さずにログイン可能になります
+        一つのNeemsBaseアカウントを作成することで、その他のNeemサービス・サーバーにログインすることができます!
+        <br />
+        NeemsBaseアカウントをお持ちの方もここから新規登録願います
       </Text>
-      <Button colorScheme="teal" onClick={() => handleSignup()}>
-        NeemsBaseでログイン
+      <Button
+        variant="gradient"
+        gradient={{ from: "indigo", to: "cyan" }}
+        onClick={() => handleSignup()}
+      >
+        NeemsBaseを経由して新規登録
       </Button>
     </>
   );
