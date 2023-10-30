@@ -1,5 +1,6 @@
 import "./globals.css";
-import Provider from "./provider";
+import '@mantine/core/styles.css';
+import { MantineProvider, ColorSchemeScript } from '@mantine/core';
 
 export const metadata = {
   title: "neem",
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
+      <ColorSchemeScript />
         <link rel="manifest" href="/manifest.json" />
         <link
           rel="apple-touch-icon"
@@ -37,7 +39,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#aebaff" />
       </head>
       <body>
-        <Provider>{children}</Provider>
+        <MantineProvider>{children}</MantineProvider>
       </body>
     </html>
   );

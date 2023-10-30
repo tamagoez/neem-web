@@ -48,7 +48,7 @@ export default function Auth() {
     <>
       <div>
         <Paper radius="md" p="xl" withBorder>
-          <Text size="lg" weight={500}>
+          <Text size="lg">
             Welcome to Neem
             <br />
             {authmode}
@@ -63,7 +63,7 @@ export default function Auth() {
                 <SignupComponent />
               )}
             </Stack>
-            <Group position="apart" mt="xl">
+            <Group mt="xl">
               <Anchor
                 component="button"
                 type="button"
