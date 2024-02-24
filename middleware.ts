@@ -6,10 +6,18 @@ export async function middleware(req: NextRequest) {
   // const supabase = createMiddlewareClient({ req, res });
   // await supabase.auth.getSession();
   if (
-    req.nextUrl.pathname.startsWith("/login") ||
+    req.nextUrl.pathname.startsWith("/login")
+  ) {
+    return NextResponse.redirect(new URL(`/auth?authmode=login`, req.url));
+  }
+  if (
     req.nextUrl.pathname.startsWith("/signup")
   ) {
-    return NextResponse.rewrite(new URL("/auth", req.url));
+    return NextResponse.redirect(new URL(`/auth?authmode=signup`, req.url));
+  }
+  if (req.nextUrl.pathname.startsWith("/@")) {
+    const username = req.nextUrl.pathname.slice(2)
+    return NextResponse.rewrite(new URL("/user/${username}", req.url));
   }
   return res;
 }

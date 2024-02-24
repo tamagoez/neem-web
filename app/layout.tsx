@@ -1,10 +1,11 @@
 import "./globals.css";
 import '@mantine/core/styles.css';
 import { MantineProvider, ColorSchemeScript } from '@mantine/core';
+import AppLoadSpinner from "./appLoadSpinner";
 
 export const metadata = {
   title: "neem",
-  description: "Official server of neem",
+  description: "an official server of Coloca",
 };
 
 export default function RootLayout({
@@ -15,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
-      <ColorSchemeScript />
+        <ColorSchemeScript />
         <link rel="manifest" href="/manifest.json" />
         <link
           rel="apple-touch-icon"
@@ -39,7 +40,8 @@ export default function RootLayout({
         <meta name="theme-color" content="#aebaff" />
       </head>
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider><AppLoadSpinner />
+        {children}</MantineProvider>
       </body>
     </html>
   );

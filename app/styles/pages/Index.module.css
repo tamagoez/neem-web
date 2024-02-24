@@ -2,22 +2,14 @@
   width: 100vw;
   height: 100vh;
   background: linear-gradient(135deg, #d4e8fc, #e2d5fe);
-  display: flex;
-  justify-content: center;
-}
-
-.title_text {
-  align-self: center;
-  text-align: center;
-  padding-bottom: "100px";
-  margin: 0 auto;
+  position: relative;
 }
 
 .title_text p {
   background: linear-gradient(270deg, #7184ff, #b3beff);
   background: -webkit-linear-gradient(280deg, #7184ff, #b3beff);
-  display: inline-block;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  position: absolute;
 }

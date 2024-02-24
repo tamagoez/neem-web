@@ -2,11 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { authLoginWithEmailPassword } from "../../scripts/database/auth/signin";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { baseUrl } from "../../utils/globalvar";
 import { issueSignupServer } from "./issue";
+import { useSearchParams } from "next/navigation";
 
-import { useToggle, upperFirst } from "@mantine/hooks";
+// import { useToggle, upperFirst } from "@mantine/hooks";
 import { UseFormReturnType, useForm } from "@mantine/form";
 import {
   Anchor,
@@ -21,8 +22,16 @@ import {
 } from "@mantine/core";
 
 export default function Auth() {
+  const searchParams = useSearchParams();
   const router = useRouter();
-  const [authmode, toggle] = useToggle<"login" | "signup">(["login", "signup"]);
+  console.log(searchParams.has("authmode"));
+  const [authmode, setAuthmode] = useState(
+    searchParams.get("authmode") ?? "login"
+  );
+  function toggle() {
+    setAuthmode(authmode === "login" ? "signup" : "login");
+    window.history.replaceState(null, "", authmode);
+  }
   const form = useForm({
     initialValues: {
       email: "",
@@ -43,6 +52,10 @@ export default function Auth() {
           : null,
     },
   });
+
+  useEffect(() => {
+    window.history.replaceState(null, "", `/${authmode}`);
+  }, []);
 
   return (
     <>
@@ -156,18 +169,16 @@ function SignupComponent() {
   return (
     <>
       <Text>
-        公式製作のNeemsBaseを経由して新規登録しましょう!
-        <br />
-        一つのNeemsBaseアカウントを作成することで、その他のNeemサービス・サーバーにログインすることができます!
-        <br />
-        NeemsBaseアカウントをお持ちの方もここから新規登録願います
+        neem・neml共通サーバーのアカウントを新規作成しましょう！<br />
+        費用は一切かかりません。<br />
+        作成したアカウントは、neem・neml共通サーバー以外で利用することはできません。
       </Text>
       <Button
         variant="gradient"
         gradient={{ from: "indigo", to: "cyan" }}
         onClick={() => handleSignup()}
       >
-        NeemsBaseを経由して新規登録
+        neem・neml共通アカウントを新規作成
       </Button>
     </>
   );
