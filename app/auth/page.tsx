@@ -22,11 +22,11 @@ import {
 } from "@mantine/core";
 
 export default function Auth() {
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const router = useRouter();
-  console.log(searchParams.has("authmode"));
+  // console.log(searchParams.has("authmode"));
   const [authmode, setAuthmode] = useState(
-    searchParams.get("authmode") ?? "login"
+    "login"
   );
   function toggle() {
     setAuthmode(authmode === "login" ? "signup" : "login");
