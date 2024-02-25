@@ -29,12 +29,19 @@ const IndexPage = () => (
         </p>
       </div>
     </div>
-    <Link href="/login"><Button component="a" variant="default">
-    ログイン
-  </Button></Link>
-    <Link href="/signup"><Button variant="gradient" gradient={{ from: "blue", to: "cyan", deg: 90 }}>
-      新規登録
-    </Button></Link>
+    <Link href="/login">
+      <Button component="a" variant="default">
+        ログイン
+      </Button>
+    </Link>
+    <Link href="/signup">
+      <Button
+        variant="gradient"
+        gradient={{ from: "blue", to: "cyan", deg: 90 }}
+      >
+        新規登録
+      </Button>
+    </Link>
   </>
 );
 

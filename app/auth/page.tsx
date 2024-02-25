@@ -1,10 +1,11 @@
 "use client";
 
+import { deleteCookie, getCookie } from "cookies-next";
+
 import { useRouter } from "next/navigation";
 import { authLoginWithEmailPassword } from "../../scripts/database/auth/signin";
 import { useEffect, useState } from "react";
 import { baseUrl } from "../../utils/globalvar";
-import { issueSignupServer } from "./issue";
 import { useSearchParams } from "next/navigation";
 
 // import { useToggle, upperFirst } from "@mantine/hooks";
@@ -22,16 +23,15 @@ import {
 } from "@mantine/core";
 
 export default function Auth() {
-  // const searchParams = useSearchParams();
-  const router = useRouter();
-  // console.log(searchParams.has("authmode"));
-  const [authmode, setAuthmode] = useState(
-    "login"
-  );
+  // const router = useRouter();
+  const [authmode, setAuthmode] = useState("login");
+
   function toggle() {
-    setAuthmode(authmode === "login" ? "signup" : "login");
-    window.history.replaceState(null, "", authmode);
+    const newAuthmode = authmode === "login" ? "signup" : "login";
+    setAuthmode(newAuthmode);
+    window.history.replaceState(null, "", `/${newAuthmode}`);
   }
+
   const form = useForm({
     initialValues: {
       email: "",
@@ -54,7 +54,13 @@ export default function Auth() {
   });
 
   useEffect(() => {
-    window.history.replaceState(null, "", `/${authmode}`);
+    const cookieAuthmode = getCookie("authmode") ?? "login";
+    console.log(cookieAuthmode)
+    setAuthmode(cookieAuthmode);
+    window.history.replaceState(null, "", `/${cookieAuthmode}`);
+    setTimeout(() => {
+      deleteCookie("authmode");
+    }, 0);
   }, []);
 
   return (
@@ -158,19 +164,15 @@ function LoginComponent({
 function SignupComponent() {
   // URL送信
   async function handleSignup() {
-    try {
-      const data = await issueSignupServer();
-      location.href = baseUrl + "connect/signup?token=" + data.token;
-    } catch (error) {
-      console.error(error);
-      alert("エラーが発生したようです...\n管理者にご連絡いただけると幸いです");
-    }
+    new Error();
   }
   return (
     <>
       <Text>
-        neem・neml共通サーバーのアカウントを新規作成しましょう！<br />
-        費用は一切かかりません。<br />
+        neem・neml共通サーバーのアカウントを新規作成しましょう！
+        <br />
+        費用は一切かかりません。
+        <br />
         作成したアカウントは、neem・neml共通サーバー以外で利用することはできません。
       </Text>
       <Button
